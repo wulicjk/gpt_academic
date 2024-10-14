@@ -136,7 +136,7 @@ model_info = {
         "token_cnt": get_token_num_gpt35,
     },
     "claude-3-sonnet":{
-    "fn_with_ui": chatgpt_ui,
+        "fn_with_ui": chatgpt_ui,
         "fn_without_ui": chatgpt_noui,
         "endpoint": openai_endpoint,
         "max_token": 128000,
