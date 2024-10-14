@@ -284,6 +284,7 @@ def predict(inputs:str, llm_kwargs:dict, plugin_kwargs:dict, chatbot:ChatBotWith
     retry = 0
     while True:
         try:
+            # todo 修改选择的模型
             # make a POST request to the API endpoint, stream=True
             response = requests.post(endpoint, headers=headers, proxies=proxies,
                                     json=payload, stream=stream, timeout=TIMEOUT_SECONDS);break

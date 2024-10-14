@@ -111,6 +111,23 @@ AVAIL_LLM_MODELS = AVAIL_LLM_MODELS + [LLM_MODEL]
 # -=-=-=-=-=-=- 以下这部分是最早加入的最稳定的模型 -=-=-=-=-=-=-
 model_info = {
     # openai
+    "ohmygpt": {
+        "fn_with_ui": chatgpt_ui,
+        "fn_without_ui": chatgpt_noui,
+        "endpoint": openai_endpoint,
+        "max_token": 16385,
+        "tokenizer": tokenizer_gpt35,
+        "token_cnt": get_token_num_gpt35,
+    },
+    "gemini-1.5-pro-001": {
+        "fn_with_ui": chatgpt_ui,
+        "fn_without_ui": chatgpt_noui,
+        "endpoint": openai_endpoint,
+        "max_token": 16385,
+        "tokenizer": tokenizer_gpt35,
+        "token_cnt": get_token_num_gpt35,
+    },
+
     "gpt-3.5-turbo": {
         "fn_with_ui": chatgpt_ui,
         "fn_without_ui": chatgpt_noui,
@@ -1245,9 +1262,13 @@ def execute_model_override(llm_kwargs, additional_fn, method):
         importlib.reload(core_functional)
         functional = core_functional.get_core_functions()
         model_override = functional[additional_fn]['ModelOverride']
-        if model_override not in model_info:
-            raise ValueError(f"模型覆盖参数 '{model_override}' 指向一个暂不支持的模型，请检查配置文件。")
-        method = model_info[model_override]["fn_with_ui"]
+        proxy = functional[additional_fn]['Proxy']
+        if proxy is not None:
+            method = model_info[proxy]["fn_with_ui"]
+        else:
+            if model_override not in model_info:
+                raise ValueError(f"模型覆盖参数 '{model_override}' 指向一个暂不支持的模型，请检查配置文件。")
+            method = model_info[model_override]["fn_with_ui"]
         llm_kwargs['llm_model'] = model_override
         return llm_kwargs, additional_fn, method
     # 默认返回原参数
