@@ -40,9 +40,9 @@ def get_core_functions():
             # 前缀，会被加在你的输入之前。例如，用来描述你的要求，例如翻译、解释代码、润色等等
             "Prefix": '''"""\n\n''',
             # 后缀，会被加在你的输入之后。例如，配合前缀可以把你的输入内容用引号圈起来
-            "Suffix": "\n\n" + r"把所有的python代码整合给我，并且加上原文中的注释，去掉非python语法的部分",
-            "ModelOverride": "gemini-1.5-pro-001",
-            "Proxy":"ohmygpt",
+            "Suffix": "\n\n" + r"把jupyter语法的python代码转为python语法的整合给我，并且带上原文中对代码行的注释，去掉非python的部分以及markdown的内容",
+            # "ModelOverride": "gemini-1.5-pro-001",
+            # "Proxy":"ohmygpt",
         },
 
 
@@ -100,6 +100,8 @@ def get_core_functions():
         "中译英": {
             "Prefix":   r"Please translate following sentence to English:" + "\n\n",
             "Suffix":   r"",
+            "ModelOverride": "claude-3-sonnet",
+            "Proxy":"ohmygpt",
         },
 
 
